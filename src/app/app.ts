@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../src/app/environment';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./app.css']
 })
 export class App implements OnInit {
-  private API = '/api';
+  private API = environment.apiUrl;
   
   productos: any[] = [];
   carrito: any[] = [];
