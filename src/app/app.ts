@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { environment } from '../../src/app/environment';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
