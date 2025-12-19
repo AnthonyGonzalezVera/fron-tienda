@@ -23,8 +23,11 @@ export class App implements OnInit {
 
   ngOnInit() {
     console.log(' ngOnInit ejecutado');
+    this.cargarCarrito();      
     this.cargarProductos();
   }
+
+  // PRODUCTOS
 
   cargarProductos() {
     console.log(' Intentando conectar con:', `${this.API}/productos`);
@@ -42,10 +45,26 @@ export class App implements OnInit {
     });
   }
 
+  
+  // CARRITO
+  
   agregarAlCarrito(producto: any) {
     console.log(' Agregando:', producto);
     this.carrito.push(producto);
     this.calcularTotal();
+    this.guardarCarrito();     
+  }
+
+  eliminar(index: number) {
+    this.carrito.splice(index, 1);
+    this.calcularTotal();
+    this.guardarCarrito();     
+  }
+
+  vaciar() {
+    this.carrito = [];
+    this.total = 0;
+    localStorage.removeItem('carrito'); 
   }
 
   calcularTotal() {
@@ -56,13 +75,18 @@ export class App implements OnInit {
     console.log(' Total:', this.total);
   }
 
-  eliminar(index: number) {
-    this.carrito.splice(index, 1);
-    this.calcularTotal();
+
+  
+  guardarCarrito() {
+    localStorage.setItem('carrito', JSON.stringify(this.carrito));
   }
 
-  vaciar() {
-    this.carrito = [];
-    this.total = 0;
+  cargarCarrito() {
+    const data = localStorage.getItem('carrito');
+    if (data) {
+      this.carrito = JSON.parse(data);
+      this.calcularTotal();
+      console.log(' Carrito cargado desde localStorage');
+    }
   }
 }
